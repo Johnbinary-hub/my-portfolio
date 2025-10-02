@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="Free website builder and hosting provider. Make your website from templates on our website and edit it to yours.">
+    <title>Binary web | sign up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth">
+        <h2>SIGN UP</h2>
+        <input type="name" placeholder="Name" required id="name" class="name">
+        <br>
+        <input type="email" placeholder="Email" required id="email" class="email">
+        <br>
+        <input type="password" placeholder="Password" required id="password" class="password">
+        <br>
+        <input type="password" placeholder="Confirm Password" required id="cpassword" class="cpassword">
+        <br>
+        <button class="btn">Sign Up</button>
+        <br>
+        <p>Already have an account? <a href="login.html">Login here</a></p> 
+    </div>
+
+    <!-- Firebase Signup Script -->
+    <script type="module">
+      import { getAuth, createUserWithEmailAndPassword } 
+        from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import { initializeApp } 
+        from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+
+      const firebaseConfig = {
+       apiKey: "AIzaSyDjgMUR8c44BzCx6C4saAksxwre446qF1E",
+  authDomain: "binaryweb-e6438.firebaseapp.com",
+  projectId: "binaryweb-e6438",
+  storageBucket: "binaryweb-e6438.firebasestorage.app",
+  messagingSenderId: "919794457696",
+  appId: "1:919794457696:web:aa5bb749aaeff040bd7705",
+  measurementId: "G-XTPPGS4XC4"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      document.querySelector(".btn").addEventListener("click", () => {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const cpassword = document.getElementById("cpassword").value;
+
+        if (password !== cpassword) {
+          alert("Passwords do not match ❌");
+          return;
+        }
+
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            alert("Signup successful ✅");
+            window.location.href = "login.html";
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
+      });
+    </script>
+</body>
+</html>

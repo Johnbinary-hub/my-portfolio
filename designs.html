@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="John Oloruntobi Obaloluwa | A website developer"/>
+  <title>John Oloruntobi Obaloluwa | A website developer </title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* --- Feature Section --- */
+    .features {
+      padding: 60px 20px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .features h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+    .feature-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .feature-card:hover {
+      transform: translateY(-8px);
+    }
+    .image-container {
+      position: relative;
+      margin-bottom: 15px;
+    }
+    .feature-image {
+      width: 100%;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .copyright {
+      position: absolute;
+      bottom: 6px;
+      right: 10px;
+      font-size: 12px;
+      color: #fff;
+      background: rgba(0,0,0,0.6);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .feature-btn {
+      margin-top: 10px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #007bff;
+      color: #fff;
+      transition: 0.3s;
+    }
+    .feature-btn:hover {
+      background: #0056b3;
+    }
+
+    /* --- Modal --- */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      max-width: 80%;
+      border-radius: 10px;
+    }
+    .close {
+      position: absolute;
+      top: 20px; right: 35px;
+      font-size: 40px;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h2 class="logo">JOHN OLORUNTOBI OBALOLUWA</h2>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="notes.html">Notes</a>
+    </nav>
+    <a href="index.html" class="btn">Back Home</a>
+  </header>
+
+  <!-- Portfolio Showcase -->
+  <section class="features">
+    <h2>What I've built</h2>
+    <p style="margin-bottom:40px; font-size:18px; color:#ccc;">
+      Here are some of my creative works and design projects 🎨✨
+    </p>
+
+    <div class="feature-grid">
+      <!-- Project 1 -->
+      <div class="feature-card">
+        <div class="image-container">
+          <img src="bg1.png" alt="E-commerce" class="feature-image" onclick="viewImage(this.src)">
+          <span class="copyright">© 2025 MyPortfolio</span>
+        </div>
+        <h3>E-COMMERCE WEBSITE</h3>
+        <p>A modern, responsive e-commerce platform designed for seamless online shopping experiences.</p>
+        <button onclick="window.open('https://abimbest-store.web.app/','_blank')" class="feature-btn">View Website</button>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="feature-card">
+        <div class="image-container">
+          <img src="bg rccg.png" alt="Church Website" class="feature-image" onclick="viewImage(this.src)">
+          <span class="copyright">© 2025 MyPortfolio</span>
+        </div>
+        <h3>Website for Church (In progress)</h3>
+        <p>This website allows members to access past sermons, church socials, join live programmes, and send prayer requests.</p>
+        <button onclick="window.open('https://johnbinary-hub.github.io/Rccg-Joyunspeakable/','_blank')" class="feature-btn">View Website</button>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="feature-card">
+        <div class="image-container">
+          <img src="bg landing page.png" alt="Landing Page" class="feature-image" onclick="viewImage(this.src)">
+          <span class="copyright">© 2025 MyPortfolio</span>
+        </div>
+        <h3>Landing page for a business</h3>
+        <p>This landing page helps businesses share their info clearly so users understand what they offer.</p>
+        <button onclick="window.open('https://johnbinary-hub.github.io/landing-page/','_blank')" class="feature-btn">View Website</button>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="feature-card">
+        <div class="image-container">
+          <img src="Screenshot_2-10-2025_22627_johnbinary-hub.github.io.jpeg" alt="Tech Company Website" class="feature-image" onclick="viewImage(this.src)">
+          <span class="copyright">© 2025 MyPortfolio</span>
+        </div>
+        <h3>Website for an upcoming Tech company</h3>
+        <p>This website allows users to order products, read blogs, and access educational content from the company.</p>
+        <button onclick="window.open('https://johnbinary-hub.github.io/smart-home-accessories/','_blank')" class="feature-btn">View Website</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal for Viewing Image -->
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 My Portfolio. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function viewImage(src) {
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImg");
+      modal.style.display = "flex";
+      modalImg.src = src;
+    }
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>

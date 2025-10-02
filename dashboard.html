@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechBot Studio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h2 class="logo">TECHBOT <br> STUDIO</h2>
+    <nav class="nav-links">
+      <a href="#">Download</a>
+      <a href="#">Group</a>
+      <a href="#">Pricing</a>
+      <a href="#">Help</a>
+    </nav>
+    <a href="login.html" class="btn">Login</a>
+    
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+  
+     <div class="auth">
+    <h1 id="welcomeText">WELCOME! 🎉</h1>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+    <p class="subtitle">Your gateway to modern tech solutions</p>
+    <div class="srch">
+      <input type="search" placeholder="your favourite..." />
+      <button class="srchbtn">SEARCH</button>
+    </div>
+    <div class="hero-actions">
+      <a href="signup.html" class="action-btn">Signup</a>
+      <button class="action-btn outline">Skip Now</button>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Our Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Download</h3>
+        <p>Access our tools anytime, anywhere with fast downloads.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Group</h3>
+        <p>Collaborate and share ideas with like-minded innovators.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Pricing</h3>
+        <p>Flexible plans designed to fit your needs and budget.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Help</h3>
+        <p>24/7 support to guide you every step of the way.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 TechBot Studio. All rights reserved.</p>
+  </footer>
+  
+
+
+  <!-- Firebase Auth Protection & Logout -->
+  <script type="module">
+    import { getAuth, onAuthStateChanged, signOut } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { initializeApp } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDjgMUR8c44BzCx6C4saAksxwre446qF1E",
+  authDomain: "binaryweb-e6438.firebaseapp.com",
+  projectId: "binaryweb-e6438",
+  storageBucket: "binaryweb-e6438.firebasestorage.app",
+  messagingSenderId: "919794457696",
+  appId: "1:919794457696:web:aa5bb749aaeff040bd7705",
+  measurementId: "G-XTPPGS4XC4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // ✅ Protect page: redirect if user not logged in
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const name = user.displayName || user.email;
+        document.getElementById("welcomeText").innerText =
+          "Welcome, " + name + " 🎉";
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    // 🚪 Logout functionality
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      signOut(auth).then(() => {
+        alert("Logged out 👋");
+        window.location.href = "login.html";
+      });
+    });
+  </script>
+</body>
+</html>
