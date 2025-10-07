@@ -150,8 +150,15 @@ text-decoration: none;
 }
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr); /* Always 2 columns */
+  gap: 30px;
+}
+
+/* On mobile, make it 1 column */
+@media (max-width: 768px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
 }
 .feature-card {
   background: rgba(255, 255, 255, 0.1);
@@ -224,4 +231,24 @@ text-decoration: none;
     margin: 5px;
     cursor: pointer;
     text-decoration: none;
+  }
+  .myphoto{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+  }
+  .about{
+    width: 600px;
+    height: auto;
+    margin: auto;
+  }
+  .h1{
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .p{
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
