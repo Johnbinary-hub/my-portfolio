@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — Ellablings</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+  <div class="hero">
+    <header>
+      <h1>Ellablings</h1>
+      <nav class="nav-link">
+        <a href="index.html">Home</a>
+        <a href="shop.html" class="active">Shop</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </header>
+
+    <div class="hero-text">
+      <h1 class="h1-hero">Our Blings Collections</h1>
+      <p class="hero-p">Handcrafted pieces designed to last a lifetime</p>
+    </div>
+  </div>
+
+  <div class="categories">
+    <div class="cat-btn">
+      <button class="btnall">ALL</button>
+      <button>RINGS</button>
+      <button>NECKLACES</button>
+      <button>BRACELETS</button>
+      <button>EARRINGS</button>
+    </div>
+  </div>
+
+  <div class="shop-items">
+    <div class="item1" data-category="rings">
+      <img src="ring (5).jpg" alt="ring1" class="item-img">
+      <h3>Elegant Diamond Ring</h3>
+      <p>₦499</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+
+    <div class="item1" data-category="necklaces">
+      <img src="necklace.jpeg" alt="necklace1" class="item-img">
+      <h3>Gold Pendant Necklace</h3>
+      <p>₦299</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+
+    <div class="item1" data-category="bracelets">
+      <img src="bracelet.jpg" alt="bracelet1" class="item-img">
+      <h3>Silver Charm Bracelet</h3>
+      <p>₦199</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+
+    <div class="item1" data-category="earrings">
+      <img src="earrings (1).jpg" alt="earrings1" class="item-img">
+      <h3>Pearl Drop Earrings</h3>
+      <p>₦149</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+  </div>
+
+  <footer>
+    <!-- <table>
+      <tbody>
+        <tr>
+          <td><strong><span>ELLABLINGS</span></strong></td>
+          <td><strong>SHOP</strong></td>
+          <td><strong>Support</strong></td>
+        </tr>
+        <tr>
+          <td>Our Story</td>
+          <td>Jewelry</td>
+          <td>FAQs</td>
+        </tr>
+        <tr>
+          <td>Careers</td>
+          <td>Fashion</td>
+          <td>Contact</td>
+        </tr>
+        <tr>
+          <td>Blog</td>
+          <td>Marketing</td>
+          <td>Help Center</td>
+        </tr>
+      </tbody>
+    </table>
+  </footer> -->
+
+  <!-- Floating Cart Icon -->
+  <a href="cart.html" class="floating-cart">
+    🛒
+    <span id="cartCount">0</span>
+  </a>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- JavaScript -->
+  <script>
+    // === Product Category Filter ===
+    const filterButtons = document.querySelectorAll(".cat-btn button");
+    const shopItems = document.querySelectorAll(".item1");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((btn) => btn.classList.remove("btnall"));
+        button.classList.add("btnall");
+
+        const category = button.textContent.trim().toLowerCase();
+
+        shopItems.forEach((item) => {
+          const itemCategory = item.getAttribute("data-category").toLowerCase();
+          item.style.display = category === "all" || category === itemCategory ? "block" : "none";
+        });
+      });
+    });
+
+    // === Cart Script (with SweetAlert2) ===
+    const buyButtons = document.querySelectorAll(".buy-btn");
+    const cartCount = document.getElementById("cartCount");
+
+    buyButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const item = e.target.closest(".item1");
+        const name = item.querySelector("h3").innerText;
+        const price = item.querySelector("p").innerText;
+        const image = item.querySelector("img").src;
+
+        const product = { name, price, image, quantity: 1 };
+
+        addToCart(product);
+        updateCartCount();
+      });
+    });
+
+    function addToCart(product) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const existing = cart.find((item) => item.name === product.name);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push(product);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      Swal.fire({
+        title: "Added to Cart 🛒",
+        text: `${product.name} has been added successfully!`,
+        icon: "success",
+        confirmButtonColor: "#4B3621",
+        timer: 2000,
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+      });
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalItems;
+    }
+
+    window.addEventListener("load", updateCartCount);
+  </script>
+</body>
+</html>
